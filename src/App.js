@@ -16,6 +16,7 @@ const historyData = [
 ];
 
 function App() {
+	const [transactionForm, setTransactionForm] = useState(false);
 	const [historyState, dispatcher] = useReducer(
 		transactionReducer,
 		historyData
@@ -28,6 +29,7 @@ function App() {
 			type,
 			newTransaction: { ...transaction, id },
 		});
+		setTransactionForm(false);
 	});
 
 	return (
@@ -37,7 +39,15 @@ function App() {
 				<Balance balance={260.005} />
 				<IncomeExpense income={500.005} expense={240.005} />
 				<History dataList={historyState} />
-				<TransactionInput addTransaction={addTransaction} />
+
+				{!transactionForm && (
+					<button className="btn btn-primary" onClick={setTransactionForm}>
+						New transaction
+					</button>
+				)}
+				{transactionForm && (
+					<TransactionInput addTransaction={addTransaction} />
+				)}
 			</Suspense>
 		</div>
 	);
