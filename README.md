@@ -78,3 +78,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] Possibility to add an expense transaction
 - [ ] Validation of the transaction form to avoid invalid data format
 - [ ] Add pagination system on the history section
+- [ ] Add animation transition when a transaction has been added

@@ -54,7 +54,7 @@ export default function TransactionInput({ addTransaction }) {
 					label="Transaction type"
 				/>
 				<button type="submit" className="btn btn-primary mx-auto my-2">
-					Add transaction
+					Submit transaction
 				</button>
 			</form>
 		</div>
