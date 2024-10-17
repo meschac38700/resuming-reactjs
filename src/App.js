@@ -24,9 +24,8 @@ function App() {
 
 	const addTransaction = useCallback((transaction) => {
 		const id = historyState.length + 1;
-		const type = transaction.type === "income" ? "add" : "remove";
 		dispatcher({
-			type,
+			type: "add",
 			newTransaction: { ...transaction, id },
 		});
 		setTransactionForm(false);

@@ -75,7 +75,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] Add modal to edit a transaction
 - [x] Add toggle button to hide/show the add transaction form
 - [ ] Make reactive the values on the transaction dashboard
-- [ ] Possibility to add an expense transaction
+- [x] Possibility to add an expense transaction
 - [ ] Validation of the transaction form to avoid invalid data format
 - [ ] Add pagination system on the history section
 - [ ] Add animation transition when a transaction has been added
