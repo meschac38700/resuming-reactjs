@@ -3,7 +3,7 @@ const HistoryItem = function ({ item }) {
 	return (
 		<div
 			className={
-				"history-item shadow-sm p-2 mb-2 bg-white border d-flex align-items-center justify-content-between " +
+				"history-item p-2 mb-2 bg-white border d-flex align-items-center justify-content-between " +
 				item.type.toLowerCase()
 			}
 			style={{ borderRight: `8px solid ${borderColor}` }}
@@ -19,11 +19,11 @@ const HistoryItem = function ({ item }) {
 
 export default function History({ dataList }) {
 	return (
-		<>
+		<div className="history shadow p-3 mb-5 bg-white rounded">
 			<h4 className="title">History</h4>
 			{dataList.map((item) => (
 				<HistoryItem key={item.id} item={item} />
 			))}
-		</>
+		</div>
 	);
 }

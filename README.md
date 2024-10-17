@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+##### Tasks
+
+- [ ] Add dropdown options for following actions: Delete, Edit
+- [ ] Add modal to edit a transaction
+- [ ] Add toggle button to hide/show the add transaction form
+- [ ] Make reactive the values on the transaction dashboard
+- [ ] Possibility to add an expense transaction
+- [ ] Validation of the transaction form to avoid invalid data format
