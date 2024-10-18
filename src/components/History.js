@@ -1,15 +1,19 @@
 import { useCallback } from "react";
-import { Reorder } from "framer-motion";
+import { Reorder, motion, MotionConfig } from "framer-motion";
 
 const HistoryItem = function ({ item }) {
 	const borderColor = item.type === "income" ? "#income" : "#dc3545";
 	return (
 		<div
 			className={
-				"history-item p-2 mb-2 bg-white shadow-sm border d-flex align-items-center justify-content-between " +
+				"history-item px-2 bg-white shadow-sm border d-flex align-items-center justify-content-between " +
 				item.type.toLowerCase()
 			}
-			style={{ borderRight: `8px solid ${borderColor}` }}
+			style={{
+				borderRight: `8px solid ${borderColor}`,
+				overflow: "hidden",
+				height: "100%",
+			}}
 		>
 			<p className="mb-0">{item.name}</p>
 			<span>
@@ -35,7 +39,15 @@ export default function History({ dataList, dispatcher }) {
 			<Reorder.Group axis="y" values={dataList} onReorder={setDataList}>
 				{dataList.map((item) => (
 					<Reorder.Item key={item.id} value={item}>
-						<HistoryItem key={item.id} item={item} />
+						<MotionConfig transition={{ duration: 0.3 }}>
+							<motion.div
+								layout
+								initial={{ opacity: 0, height: 0, margin: 0 }}
+								animate={{ height: 42, opacity: 1, margin: 10 }}
+							>
+								<HistoryItem key={item.id} item={item} />
+							</motion.div>
+						</MotionConfig>
 					</Reorder.Item>
 				))}
 			</Reorder.Group>
