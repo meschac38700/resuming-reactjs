@@ -74,8 +74,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] Add dropdown options for following actions: Delete, Edit
 - [ ] Add modal to edit a transaction
 - [x] Add toggle button to hide/show the add transaction form
-- [ ] Make reactive the values on the transaction dashboard
+- [x] Make reactive the values on the transaction dashboard
 - [x] Possibility to add an expense transaction
 - [ ] Validation of the transaction form to avoid invalid data format
 - [ ] Add pagination system on the history section
 - [ ] Add animation transition when a transaction has been added
+- [ ] Add right to overdraft to allow user to expense more than his balance.

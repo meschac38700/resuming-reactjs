@@ -20,8 +20,11 @@ export default function TransactionInput({ addTransaction }) {
 	 */
 	const handleFormSubmit = useCallback((e) => {
 		e.preventDefault();
-		const formData = extractFormData(formRef.current);
-		addTransaction(formData);
+		const transactionData = extractFormData(formRef.current);
+		addTransaction({
+			...transactionData,
+			amount: Number.parseInt(transactionData.amount),
+		});
 	});
 	const transactionTypes = [
 		{ text: "Income", value: "income", selected: true },
