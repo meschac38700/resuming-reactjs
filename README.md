@@ -1,3 +1,7 @@
+#### Expense tracker
+
+![alt "App image"](public/react-app.png "Application image")
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
