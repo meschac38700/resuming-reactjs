@@ -79,5 +79,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] Validation of the transaction form to avoid invalid data format
 - [ ] Add pagination system on the history section
 - [ ] Add animation transition when a transaction has been added
-- [ ] Add drag drop on history section
+- [x] Add drag drop on history section to allow reordering each line
 - [ ] Add right to overdraft to allow user to expense more than his balance.

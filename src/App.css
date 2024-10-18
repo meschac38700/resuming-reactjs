@@ -58,3 +58,13 @@ h5,
 h6 {
   color: var(--bs-dark-text-emphasis) !important;
 }
+
+.history ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.history li {
+  cursor: pointer;
+}

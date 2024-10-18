@@ -44,7 +44,7 @@ function App() {
 				<Title title="Expense Tracker" centered />
 				<Balance balance={balance} />
 				<IncomeExpense income={incomeValue} expense={expenseValue} />
-				<History dataList={historyState} />
+				<History dataList={historyState} dispatcher={dispatcher} />
 
 				{!transactionForm && (
 					<button className="btn btn-primary" onClick={setTransactionForm}>
