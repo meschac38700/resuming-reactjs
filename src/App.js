@@ -1,5 +1,5 @@
 import "./App.css";
-import { Suspense, useCallback, useMemo, useReducer, useState } from "react";
+import { Suspense, useCallback, useReducer, useState } from "react";
 import {
 	Balance,
 	Title,
@@ -8,6 +8,7 @@ import {
 	TransactionInput,
 } from "./components";
 import { transactionReducer } from "./utils/state/reducer";
+import { useBalance, useIncomeExpense } from "./utils/hooks";
 
 const historyData = [
 	{ id: 1, name: "Cash", amount: 1000, type: "income" },
@@ -16,24 +17,14 @@ const historyData = [
 ];
 
 function App() {
-	const [balance, setBalance] = useState(0);
 	const [transactionForm, setTransactionForm] = useState(false);
 	const [historyState, dispatcher] = useReducer(
 		transactionReducer,
 		historyData
 	);
-	const updateBalance = useCallback((amount, transactionType) => {
-		if (transactionType === "income") {
-			return setBalance((solde) => solde + amount);
-		}
+	const [balance, updateBalance] = useBalance(41524);
 
-		const newBalance = balance - amount;
-		if (newBalance < 0) {
-			throw new Error("Transaction failed due to insufficient balance !");
-		}
-		setBalance(newBalance);
-	});
-
+	const [incomeValue, expenseValue] = useIncomeExpense(historyState);
 	/**
 	 * @param {{id: number, name: string, amount: number, type: 'income' | 'expense'}} transaction
 	 */
@@ -47,22 +38,6 @@ function App() {
 		setTransactionForm(false);
 	});
 
-	const expenseValue = useMemo(
-		() =>
-			historyState.reduce(
-				(sum, trans) => (trans.type === "expense" ? trans.amount + sum : sum),
-				0
-			),
-		[historyState]
-	);
-	const incomeValue = useMemo(
-		() =>
-			historyState.reduce(
-				(sum, trans) => (trans.type === "income" ? trans.amount + sum : sum),
-				0
-			),
-		[historyState]
-	);
 	return (
 		<div className="container mt-4">
 			<Suspense fallback="Loading..">
