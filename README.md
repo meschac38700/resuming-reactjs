@@ -80,7 +80,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [x] Add toggle button to hide/show the add transaction form
 - [x] Make reactive the values on the transaction dashboard
 - [x] Possibility to add an expense transaction
-- [ ] Validation of the transaction form to avoid invalid data format
+- [x] Validation of the transaction form to avoid invalid data format
+- [ ] Missing validation of amount type, it should be a number (check if register could get a custom function validator)
 - [ ] Add pagination system on the history section
 - [x] Add animate adding new line in the history section
 - [x] Add drag drop on history section to allow reordering each line
