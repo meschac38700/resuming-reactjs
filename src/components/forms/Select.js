@@ -1,7 +1,9 @@
 import { useId } from "react";
+import { useFormContext } from "react-hook-form";
 
-export default function Select({ options, label, name, help }) {
+export default function Select({ options, label, name, help, required }) {
 	const id = useId();
+	const { register } = useFormContext();
 	const defaultValue = options.filter((opt) => opt.selected)?.[0].value;
 	return (
 		<div className="input-group mb-3">
@@ -15,6 +17,12 @@ export default function Select({ options, label, name, help }) {
 				name={name}
 				id={"inputGroupSelect" + id}
 				defaultValue={defaultValue}
+				{...register(name, {
+					required: {
+						value: required,
+						message: `Field '${label}' is required.`,
+					},
+				})}
 			>
 				{options.map((opt) => (
 					<option value={opt.value} key={opt.value}>
