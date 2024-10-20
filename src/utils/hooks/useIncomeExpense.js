@@ -1,5 +1,10 @@
 import { useMemo } from "react";
 
+/**
+ * Compute expense and income transaction amounts
+ * @param {Array<{id: Number, name: String, amount: Number, type: 'income' | 'expense'}>} transactionHistory
+ * @returns Number[]
+ */
 export default function useIncomeExpense(transactionHistory) {
 	const expense = useMemo(
 		() =>

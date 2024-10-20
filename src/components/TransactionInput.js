@@ -1,15 +1,7 @@
 import { useRef, useCallback } from "react";
 import Input from "./forms/Input";
 import Select from "./forms/Select";
-
-function extractFormData(form) {
-	const fd = new FormData(form);
-	const data = {};
-	for (const [key, value] of fd.entries()) {
-		data[key] = value;
-	}
-	return data;
-}
+import { extractFormData, transactionTypes } from "../utils/functions";
 
 export default function TransactionInput({ addTransaction }) {
 	const formRef = useRef(null);
@@ -26,13 +18,9 @@ export default function TransactionInput({ addTransaction }) {
 			amount: Number.parseInt(transactionData.amount),
 		});
 	});
-	const transactionTypes = [
-		{ text: "Income", value: "income", selected: true },
-		{ text: "Expense", value: "expense", selected: false },
-	];
 
 	return (
-		<div className="mt-4 shadow p-3 mb-5 bg-white rounded">
+		<div className="shadow p-3 bg-white rounded">
 			<h4 className="title mb-4">Transaction</h4>
 			<form
 				ref={formRef}
@@ -52,7 +40,7 @@ export default function TransactionInput({ addTransaction }) {
 					placeholder="Enter amount..."
 				/>
 				<Select
-					options={transactionTypes}
+					options={transactionTypes()}
 					name="type"
 					label="Transaction type"
 				/>

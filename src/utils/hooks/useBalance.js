@@ -22,7 +22,7 @@ function getNewBalance(amount, currentBalance, transactionType) {
 /**
  * Manage balance state
  * @param {Number} initialBalance
- * @returns Array<Number, Function>
+ * @returns (Number | Function)[]
  */
 export default function useBalance(initialBalance) {
 	const [balance, setBalance] = useState(initialBalance);

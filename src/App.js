@@ -10,6 +10,9 @@ import {
 import { transactionReducer } from "./utils/state/reducer";
 import { useBalance, useIncomeExpense } from "./utils/hooks";
 
+/**
+ * @type {Array<{id: Number, name: String, amount: Number, type: 'income' | 'expense'}>}
+ */
 const historyData = [
 	{ id: 1, name: "Cash", amount: 1000, type: "income" },
 	{ id: 2, name: "Book", amount: 500, type: "expense" },
@@ -39,7 +42,7 @@ function App() {
 	});
 
 	return (
-		<div className="container mt-4">
+		<div className="container d-flex gap-3 flex-column">
 			<Suspense fallback="Loading..">
 				<Title title="Expense Tracker" centered />
 				<Balance balance={balance} />
@@ -47,7 +50,11 @@ function App() {
 				<History dataList={historyState} dispatcher={dispatcher} />
 
 				{!transactionForm && (
-					<button className="btn btn-primary" onClick={setTransactionForm}>
+					<button
+						className="btn btn-primary"
+						style={{ width: "max-content" }}
+						onClick={setTransactionForm}
+					>
 						New transaction
 					</button>
 				)}

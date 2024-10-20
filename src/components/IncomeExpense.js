@@ -6,7 +6,7 @@ export default function IncomeExpense({ income, expense }) {
 
 	return (
 		<div
-			className="shadow p-3 mb-5 bg-white rounded row mt-4"
+			className="shadow p-3 bg-white rounded row"
 			style={{ padding: "0px !important" }}
 		>
 			<div
