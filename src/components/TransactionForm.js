@@ -2,8 +2,9 @@ import Input from "./forms/Input";
 import Select from "./forms/Select";
 import { transactionTypes } from "../utils/functions";
 import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
 
-export default function TransactionInput({ addTransaction }) {
+function TransactionForm({ addTransaction }) {
 	const methods = useForm();
 
 	/**
@@ -11,7 +12,6 @@ export default function TransactionInput({ addTransaction }) {
 	 * @param {SubmitEvent} e
 	 */
 	const handleFormSubmit = methods.handleSubmit((transactionData) => {
-		debugger;
 		addTransaction({
 			...transactionData,
 			amount: Number.parseInt(transactionData.amount),
@@ -57,5 +57,25 @@ export default function TransactionInput({ addTransaction }) {
 				</form>
 			</FormProvider>
 		</div>
+	);
+}
+
+export default function AddTransaction({ onSubmit }) {
+	const [showForm, setShowForm] = useState(false);
+
+	return (
+		<>
+			{showForm ? (
+				<TransactionForm addTransaction={onSubmit} />
+			) : (
+				<button
+					className="btn btn-primary"
+					style={{ width: "max-content" }}
+					onClick={setShowForm}
+				>
+					New transaction
+				</button>
+			)}
+		</>
 	);
 }

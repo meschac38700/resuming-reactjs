@@ -1,11 +1,11 @@
 import "./App.css";
-import { Suspense, useCallback, useReducer, useState } from "react";
+import { Suspense, useCallback, useReducer } from "react";
 import {
 	Balance,
 	Title,
 	IncomeExpense,
 	History,
-	TransactionInput,
+	AddTransaction,
 } from "./components";
 import { transactionReducer } from "./utils/state/reducer";
 import { useBalance, useIncomeExpense } from "./utils/hooks";
@@ -20,7 +20,6 @@ const historyData = [
 ];
 
 function App() {
-	const [showForm, setShowForm] = useState(false);
 	const [historyState, dispatcher] = useReducer(
 		transactionReducer,
 		historyData
@@ -38,7 +37,6 @@ function App() {
 			type: "add",
 			newTransaction: { ...transaction, id },
 		});
-		setShowForm(false);
 	});
 
 	return (
@@ -49,16 +47,7 @@ function App() {
 				<IncomeExpense income={incomeValue} expense={expenseValue} />
 				<History dataList={historyState} dispatcher={dispatcher} />
 
-				{!showForm && (
-					<button
-						className="btn btn-primary"
-						style={{ width: "max-content" }}
-						onClick={setShowForm}
-					>
-						New transaction
-					</button>
-				)}
-				{showForm && <TransactionInput addTransaction={addTransaction} />}
+				<AddTransaction onSubmit={addTransaction} />
 			</Suspense>
 		</div>
 	);
