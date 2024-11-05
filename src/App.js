@@ -1,5 +1,5 @@
 import "./App.css";
-import { Suspense, useCallback, useReducer } from "react";
+import { Suspense, useCallback, useReducer, useRef } from "react";
 import {
 	Balance,
 	Title,
@@ -20,6 +20,7 @@ const historyData = [
 ];
 
 function App() {
+	const formRef = useRef(null);
 	const [historyState, dispatcher] = useReducer(
 		transactionReducer,
 		historyData
@@ -37,6 +38,7 @@ function App() {
 			type: "add",
 			newTransaction: { ...transaction, id },
 		});
+		formRef.current.clearForm();
 	});
 
 	return (
@@ -47,7 +49,7 @@ function App() {
 				<IncomeExpense income={incomeValue} expense={expenseValue} />
 				<History dataList={historyState} dispatcher={dispatcher} />
 
-				<AddTransaction onSubmit={addTransaction} />
+				<AddTransaction ref={formRef} onSubmit={addTransaction} />
 			</Suspense>
 		</div>
 	);

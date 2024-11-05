@@ -2,9 +2,10 @@ import Input from "./forms/Input";
 import Select from "./forms/Select";
 import { transactionTypes } from "../utils/functions";
 import { FormProvider, useForm } from "react-hook-form";
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
-function TransactionForm({ addTransaction }) {
+const TransactionForm = forwardRef(({ addTransaction }, ref) => {
+	const formRef = useRef(null);
 	const methods = useForm();
 
 	/**
@@ -18,11 +19,16 @@ function TransactionForm({ addTransaction }) {
 		});
 	});
 
+	useImperativeHandle(ref, () => ({
+		clearForm: () => formRef.current?.reset(),
+	}));
+
 	return (
 		<div className="shadow p-3 bg-white rounded">
 			<h4 className="title mb-4">Transaction</h4>
 			<FormProvider {...methods}>
 				<form
+					ref={formRef}
 					className="form form-transaction"
 					onSubmit={(e) => e.preventDefault()}
 					noValidate
@@ -58,15 +64,15 @@ function TransactionForm({ addTransaction }) {
 			</FormProvider>
 		</div>
 	);
-}
+});
 
-export default function AddTransaction({ onSubmit }) {
+const AddTransaction = forwardRef(({ onSubmit }, ref) => {
 	const [showForm, setShowForm] = useState(false);
 
 	return (
 		<>
 			{showForm ? (
-				<TransactionForm addTransaction={onSubmit} />
+				<TransactionForm ref={ref} addTransaction={onSubmit} />
 			) : (
 				<button
 					className="btn btn-primary"
@@ -78,4 +84,6 @@ export default function AddTransaction({ onSubmit }) {
 			)}
 		</>
 	);
-}
+});
+AddTransaction.displayName = "AddTransaction";
+export default AddTransaction;
