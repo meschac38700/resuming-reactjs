@@ -4,7 +4,7 @@ import { transactionTypes } from "../utils/functions";
 import { FormProvider, useForm } from "react-hook-form";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
-const TransactionForm = forwardRef(({ addTransaction }, ref) => {
+const TransactionForm = forwardRef(({ addTransaction, onCancel }, ref) => {
 	const formRef = useRef(null);
 	const methods = useForm();
 
@@ -53,13 +53,22 @@ const TransactionForm = forwardRef(({ addTransaction }, ref) => {
 						label="Transaction type"
 						required
 					/>
-					<button
-						type="submit"
-						onClick={handleFormSubmit}
-						className="btn btn-primary mx-auto my-2"
-					>
-						Submit transaction
-					</button>
+					<div className="d-flex mt-4">
+						<button
+							type="submit"
+							onClick={handleFormSubmit}
+							className="btn btn-primary"
+						>
+							Submit transaction
+						</button>
+						<button
+							type="submit"
+							onClick={onCancel}
+							className="btn btn-secondary mx-auto"
+						>
+							Cancel
+						</button>
+					</div>
 				</form>
 			</FormProvider>
 		</div>
@@ -69,10 +78,18 @@ const TransactionForm = forwardRef(({ addTransaction }, ref) => {
 const AddTransaction = forwardRef(({ onSubmit }, ref) => {
 	const [showForm, setShowForm] = useState(false);
 
+	const cancelForm = (e) => {
+		e.preventDefault();
+		setShowForm(false);
+	};
 	return (
 		<>
 			{showForm ? (
-				<TransactionForm ref={ref} addTransaction={onSubmit} />
+				<TransactionForm
+					ref={ref}
+					addTransaction={onSubmit}
+					onCancel={cancelForm}
+				/>
 			) : (
 				<button
 					className="btn btn-primary"
