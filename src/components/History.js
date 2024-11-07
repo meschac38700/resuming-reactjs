@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { Reorder, motion, MotionConfig } from "framer-motion";
+import HistoryPagination from "./HistoryPagination";
 
 const HistoryItem = function ({ item }) {
 	const borderColor = item.type === "income" ? "#income" : "#dc3545";
@@ -54,6 +55,12 @@ export default function History({ dataList, dispatcher }) {
 					</Reorder.Item>
 				))}
 			</Reorder.Group>
+			<HistoryPagination
+				currentPage={1}
+				maxVisiblePages={5}
+				pageSize={10}
+				totalItems={100}
+			/>
 		</div>
 	);
 }
