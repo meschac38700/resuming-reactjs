@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Reorder, motion, MotionConfig } from "framer-motion";
 import HistoryPagination from "./HistoryPagination";
 
@@ -29,10 +29,11 @@ const HistoryItem = function ({ item }) {
 };
 
 const PAGINATION = 5;
-export default function History({ dataList, dispatcher }) {
+export default function History({ dataList }) {
 	const [currentPage, setCurrentPage] = useState(1);
+	const [histories, setHistories] = useState([]);
 
-	const histories = useMemo(() => {
+	useEffect(() => {
 		const pageIndex = currentPage - 1;
 		const start = pageIndex * PAGINATION;
 		const end = PAGINATION * currentPage;
@@ -40,21 +41,13 @@ export default function History({ dataList, dispatcher }) {
 		if (paginatedItems.length === 0) {
 			paginatedItems = dataList.slice(pageIndex);
 		}
-		return paginatedItems;
+		setHistories(paginatedItems);
 	}, [dataList, currentPage]);
-
-	const setDataList = useCallback((state) => {
-		let newState = state;
-		if (typeof state === "function") {
-			newState = state.apply();
-		}
-		dispatcher({ type: "reorder", newState });
-	});
 
 	return (
 		<div className="history shadow p-3 bg-white rounded">
 			<h4 className="title">History</h4>
-			<Reorder.Group axis="y" values={dataList} onReorder={setDataList}>
+			<Reorder.Group axis="y" values={histories} onReorder={setHistories}>
 				{histories.map((item) => (
 					<Reorder.Item key={item.id} value={item}>
 						<MotionConfig transition={{ duration: 0.3 }}>

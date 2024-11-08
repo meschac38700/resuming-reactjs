@@ -110,7 +110,7 @@ function App() {
 				<Title title="Expense Tracker" centered />
 				<Balance balance={balance} />
 				<IncomeExpense income={incomeValue} expense={expenseValue} />
-				<History dataList={historyState} dispatcher={dispatcher} />
+				<History dataList={historyState} />
 
 				<AddTransaction ref={formRef} onSubmit={addTransaction} />
 			</Suspense>
