@@ -5,6 +5,8 @@ import Pagination from "react-bootstrap/Pagination";
  * Calculate the current pagination range of pages to display
  */
 function getPaginationRange(page, maxVisiblePages, nbPages) {
+	if (nbPages <= maxVisiblePages) return [1, nbPages];
+
 	const maxMid = Math.floor(maxVisiblePages / 2);
 
 	if (page <= maxMid + 1) {
@@ -41,11 +43,12 @@ function getPaginationRange(page, maxVisiblePages, nbPages) {
 
 export default function HistoryPagination({
 	currentPage,
-	totalItems,
+	items,
 	pageSize,
 	onPageChange,
 	maxVisiblePages = 5,
 }) {
+	const totalItems = useMemo(() => items.length, [items]);
 	const nbPages = useMemo(
 		() => Math.ceil(totalItems / pageSize),
 		[totalItems, pageSize]

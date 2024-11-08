@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Reorder, motion, MotionConfig } from "framer-motion";
 import HistoryPagination from "./HistoryPagination";
 
@@ -28,7 +28,21 @@ const HistoryItem = function ({ item }) {
 	);
 };
 
+const PAGINATION = 5;
 export default function History({ dataList, dispatcher }) {
+	const [currentPage, setCurrentPage] = useState(1);
+
+	const histories = useMemo(() => {
+		const pageIndex = currentPage - 1;
+		const start = pageIndex * PAGINATION;
+		const end = PAGINATION * currentPage;
+		let paginatedItems = dataList.slice(start, end);
+		if (paginatedItems.length === 0) {
+			paginatedItems = dataList.slice(pageIndex);
+		}
+		return paginatedItems;
+	}, [dataList, currentPage]);
+
 	const setDataList = useCallback((state) => {
 		let newState = state;
 		if (typeof state === "function") {
@@ -41,7 +55,7 @@ export default function History({ dataList, dispatcher }) {
 		<div className="history shadow p-3 bg-white rounded">
 			<h4 className="title">History</h4>
 			<Reorder.Group axis="y" values={dataList} onReorder={setDataList}>
-				{dataList.map((item) => (
+				{histories.map((item) => (
 					<Reorder.Item key={item.id} value={item}>
 						<MotionConfig transition={{ duration: 0.3 }}>
 							<motion.div
@@ -55,12 +69,15 @@ export default function History({ dataList, dispatcher }) {
 					</Reorder.Item>
 				))}
 			</Reorder.Group>
-			<HistoryPagination
-				currentPage={1}
-				maxVisiblePages={5}
-				pageSize={10}
-				totalItems={100}
-			/>
+			{dataList.length > PAGINATION && (
+				<HistoryPagination
+					currentPage={currentPage}
+					onPageChange={setCurrentPage}
+					maxVisiblePages={5}
+					pageSize={PAGINATION}
+					items={dataList}
+				/>
+			)}
 		</div>
 	);
 }
